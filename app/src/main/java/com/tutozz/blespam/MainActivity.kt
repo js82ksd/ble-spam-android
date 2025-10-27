@@ -17,13 +17,32 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.tutozz.blespam.databinding.ActivityMainBinding
 
-
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    // МЕТОД ДЛЯ ШУТОЧНЫХ УСТРОЙСТВ - ДОБАВЬ ЭТОТ МЕТОД
+    private fun showRandomDeviceToast() {
+        val jokeDevices = arrayOf(
+            "🚨 POLICE iPhone обнаружен",
+            "📡 GOV iPad поблизости", 
+            "👽 UFO Device подключен",
+            "💣 Bomb Squad устройство",
+            "🚗 Tesla Security рядом",
+            "🛰️ NSA Monitor активен",
+            "⚡ Energy Dept девайс",
+            "🎯 Military Grade устройство"
+        )
+        val randomDevice = jokeDevices.random()
+        Toast.makeText(this, randomDevice, Toast.LENGTH_SHORT).show()
+    }
 
     private fun onClickSpamButton(spammer: Spammer, button: Button, circle: ImageView){
         button.setOnClickListener {
             if(!spammer.isSpamming){
+                // ДОБАВЛЯЕМ ШУТОЧНЫЕ УВЕДОМЛЕНИЯ ДЛЯ CONTINUITY
+                if(spammer is ContinuitySpam) {
+                    showRandomDeviceToast()
+                }
                 spammer.start()
                 // blink animation
                 circle.setImageResource(R.drawable.active_circle)
@@ -119,4 +138,3 @@ class MainActivity : ComponentActivity() {
         return blinkRunnable
     }
 }
-
